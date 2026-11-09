@@ -1,0 +1,17 @@
+{
+  "1bottle": {
+    "id": "prod_c6f6822851774830b9a9",
+    "name": "VANTACIN+ \u2014 1 Bottle Starter (15% Off)",
+    "amount": "17000.00"
+  },
+  "2bottles": {
+    "id": "prod_8f462debad5c416297aa",
+    "name": "VANTACIN+ \u2014 2 Bottles Recommended (15% Off)",
+    "amount": "28900.00"
+  },
+  "3bottles": {
+    "id": "prod_89dfb019004541d7bc86",
+    "name": "VANTACIN+ \u2014 3 Bottles Eradication Bundle (15% Off)",
+    "amount": "34000.00"
+  }
+}

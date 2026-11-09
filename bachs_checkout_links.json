@@ -1,0 +1,20 @@
+{
+  "1bottle": {
+    "product_id": "prod_c6f6822851774830b9a9",
+    "amount": "17000.00",
+    "checkout_url": "https://checkout.bachs.io/c/2dlngXokX0jUT9c",
+    "checkout_id": "chk_vQoId78eUfJORe2H"
+  },
+  "2bottles": {
+    "product_id": "prod_8f462debad5c416297aa",
+    "amount": "28900.00",
+    "checkout_url": "https://checkout.bachs.io/c/G77gVeZWvJ_8CYI",
+    "checkout_id": "chk_6nQXNWWvcGjFv0Gr"
+  },
+  "3bottles": {
+    "product_id": "prod_89dfb019004541d7bc86",
+    "amount": "34000.00",
+    "checkout_url": "https://checkout.bachs.io/c/yvF54bwI8P0uRns",
+    "checkout_id": "chk_uEhyPsAnLisF3JWc"
+  }
+}

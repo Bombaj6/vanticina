@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Confirmed — VANTACIN+ Herbal Solution</title>
+  <meta name="description" content="Thank you for ordering VANTACIN+ Herbal Capsules. Your delivery order has been received.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .ty-container {
+      max-width: 680px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .ty-card {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 36px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .ty-checkmark {
+      width: 72px;
+      height: 72px;
+      background: #ecfdf5;
+      border: 3px solid #059669;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: #059669;
+      font-size: 36px;
+      font-weight: 900;
+    }
+    .ty-summary-box {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      margin: 24px 0;
+    }
+    .ty-summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #e2e8f0;
+      font-size: 0.95rem;
+    }
+    .ty-summary-row:last-child {
+      border-bottom: none;
+      padding-top: 12px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #065f46;
+    }
+    .ty-steps-box {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      color: #1e3a8a;
+      line-height: 1.6;
+    }
+    /* Modal styles */
+    .ty-discount-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .ty-discount-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .ty-modal-box {
+      background: white;
+      border-radius: 20px;
+      max-width: 520px;
+      width: 100%;
+      padding: 32px 24px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      border: 3px solid #059669;
+    }
+  </style>
+</head>
+<body style="background: #f8fafc;">
+
+  <!-- Publication Header -->
+  <header class="hid-site-header">
+    <div class="hid-header-container">
+      <a href="index.html" class="hid-brand">
+        Health Insights Daily <span class="badge">DISPATCH</span>
+      </a>
+      <a href="https://wa.me/2348129354135?text=Hello%20Support%2C%20I%20just%20placed%20an%20order%20for%20Vantacin%2B" target="_blank" class="hid-header-wa-btn">
+        💬 WhatsApp: +2348129354135
+      </a>
+    </div>
+  </header>
+
+  <div class="ty-container">
+    <div class="ty-card">
+      <div class="ty-checkmark" id="ty-icon">✓</div>
+      
+      <h1 style="font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 8px;" id="ty-heading">
+        Order Received Successfully!
+      </h1>
+      
+      <p style="font-size: 1.05rem; color: #475569; margin-bottom: 20px;" id="ty-subheading">
+        Thank you! Your order for <strong>VANTACIN+ Herbal Capsules</strong> has been registered in our dispatch system.
+      </p>
+
+      <!-- Customer Order Details Box -->
+      <div class="ty-summary-box">
+        <h4 style="font-size: 1.05rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; text-transform: uppercase;">
+          📦 Order Summary
+        </h4>
+        <div class="ty-summary-row">
+          <span style="color: #64748b;">Customer Name:</span>
+          <strong id="summary-name" style="color: #0f172a;">Customer</strong>
+        </div>
+        <div class="ty-summary-row">
+          <span style="color: #64748b;">WhatsApp / Phone:</span>
+          <strong id="summary-phone" style="color: #0f172a;">-</strong>
+        </div>
+        <div class="ty-summary-row">
+          <span style="color: #64748b;">Selected Package:</span>
+          <strong id="summary-package" style="color: #0f172a;">2 Bottles (₦34,000)</strong>
+        </div>
+        <div class="ty-summary-row">
+          <span style="color: #64748b;">Payment Method:</span>
+          <strong id="summary-payment" style="color: #d97706;">Pay on Delivery (Cash / Transfer)</strong>
+        </div>
+        <div class="ty-summary-row">
+          <span>Total Amount Due:</span>
+          <span id="summary-total" style="font-size: 1.25rem;">₦34,000</span>
+        </div>
+      </div>
+
+      <!-- What happens next -->
+      <div class="ty-steps-box" id="ty-steps-box">
+        <h4 style="font-size: 1.05rem; font-weight: 800; color: #1e3a8a; margin-bottom: 10px;">
+          What Happens Next?
+        </h4>
+        <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <li>📞 <strong>Phone / WhatsApp Confirmation:</strong> Our delivery representative will contact you shortly from <strong>+2348129354135</strong> to verify your delivery address and schedule delivery.</li>
+          <li>🚚 <strong>Fast Discreet Shipping:</strong> Your parcel will be packaged in a plain, unmarked carton with 100% privacy guaranteed.</li>
+          <li>💵 <strong>Payment on Delivery:</strong> You inspect your package before paying cash or making a direct bank transfer upon arrival.</li>
+        </ul>
+      </div>
+
+      <!-- WhatsApp Instant Confirmation Button -->
+      <div style="margin: 28px 0 16px 0;">
+        <a id="btn-wa-confirm" href="https://wa.me/2348129354135?text=Hello%20Customer%20Care%2C%20I%20just%20placed%20an%20order%20for%20Vantacin%2B" target="_blank" class="hid-atc-btn hid-atc-btn-green" style="display: block; width: 100%; text-decoration: none; padding: 16px; font-size: 1.1rem; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);">
+          💬 Click Here to Confirm Your Order on WhatsApp →
+        </a>
+      </div>
+
+      <p style="font-size: 0.88rem; color: #64748b; margin-top: 14px;">
+        Questions or urgent changes? Reach our customer care desk at <strong>+2348129354135</strong>.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- SPECIAL ONLINE PAYMENT 15% DISCOUNT MODAL -->
+  <div class="ty-discount-modal" id="online-discount-modal">
+    <div class="ty-modal-box">
+      <button class="hid-modal-close" onclick="closeDiscountModal()">✕</button>
+
+      <div style="font-size: 2.8rem; margin-bottom: 6px;">🎁</div>
+      <span style="background: #fef3c7; color: #92400e; font-size: 0.82rem; font-weight: 800; padding: 4px 14px; border-radius: 20px; text-transform: uppercase;">
+        ONE-TIME EXCLUSIVE OFFER
+      </span>
+
+      <h2 style="font-size: 1.55rem; font-weight: 800; color: #0f172a; margin: 12px 0 8px 0;">
+        Get An Extra 15% Discount!
+      </h2>
+
+      <p style="font-size: 0.95rem; color: #475569; line-height: 1.55; margin-bottom: 18px;">
+        Avoid cash delays and upgrade to <strong>Priority VIP Express Dispatch</strong>. If you choose to <strong>Pay Online Now</strong> via Card, Bank Transfer, or USSD, you instantly save an extra 15%:
+      </p>
+
+      <!-- Package Selection Inside Modal -->
+      <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 16px; text-align: left; margin-bottom: 20px;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 6px;">
+          Confirm Your Package:
+        </label>
+        <select id="modal-plan-select" onchange="updateModalDiscountPrice()" style="width: 100%; padding: 12px; border-radius: 8px; border: 1.5px solid #cbd5e1; font-size: 0.95rem; font-weight: 700; color: #0f172a; outline: none; background: white;">
+          <option value="1bottle">1 Bottle Starter — ₦17,000 (was ₦20,000 • Save ₦3,000)</option>
+          <option value="2bottles" selected>2 Bottles Most Popular — ₦28,900 (was ₦34,000 • Save ₦5,100)</option>
+          <option value="3bottles">3 Bottles Eradication — ₦34,000 (was ₦40,000 • Save ₦6,000)</option>
+        </select>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 10px; border-top: 1px dashed #cbd5e1;">
+          <span style="font-size: 0.9rem; color: #64748b;">Special Online Price:</span>
+          <span id="modal-discount-price" style="font-size: 1.45rem; font-weight: 800; color: #059669;">₦28,900</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <button id="btn-pay-bachs" onclick="initiateBachsOnlinePayment()" class="hid-atc-btn hid-atc-btn-green" style="width: 100%; padding: 16px; font-size: 1.1rem; border-radius: 8px; margin-bottom: 12px;">
+        💳 PAY ONLINE NOW (15% OFF) →
+      </button>
+
+      <button onclick="closeDiscountModal()" style="background: none; border: none; font-size: 0.9rem; color: #64748b; font-weight: 600; cursor: pointer; text-decoration: underline;">
+        No thanks, I will pay full price on delivery
+      </button>
+
+      <div id="modal-loader" style="display: none; margin-top: 14px; font-weight: 700; color: #059669; font-size: 0.92rem;">
+        ⏳ Connecting to Bachs Secure Payment Gateway...
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/2348129354135?text=Hello%20Customer%20Support%2C%20I%20have%20an%20inquiry%20about%20my%20Vantacin%2B%20order" target="_blank" class="hid-floating-whatsapp" title="Chat with Customer Service">
+    <svg viewBox="0 0 24 24">
+      <path d="M12.031 2C6.495 2 2 6.495 2 12.031c0 1.954.561 3.778 1.533 5.32L2 22l4.825-1.494A10.01 10.01 0 0012.031 22C17.567 22 22 17.505 22 12.031 22 6.495 17.567 2 12.031 2zm5.795 14.195c-.244.686-1.42 1.312-1.968 1.393-.526.078-1.214.11-3.518-.846-2.946-1.222-4.836-4.22-4.983-4.416-.146-.195-1.196-1.593-1.196-3.037 0-1.444.757-2.155 1.026-2.448.269-.293.586-.366.782-.366.195 0 .39.002.562.01.183.008.428-.07.67.513.244.586.83 2.028.903 2.175.073.146.122.317.024.512-.097.195-.146.317-.293.488-.146.171-.307.382-.44.512-.146.146-.299.306-.129.598.17.293.755 1.246 1.62 2.015 1.112.989 2.049 1.296 2.341 1.442.293.146.464.122.635-.073.171-.195.733-.855.928-1.148.195-.293.39-.244.659-.146.269.097 1.708.806 2.001.952.293.146.488.22.562.342.073.122.073.708-.171 1.394z"/>
+    </svg>
+  </a>
+
+  <script>
+    // Live Bachs Checkout Links mapping
+    const bachsLinks = {
+      '1bottle': 'https://checkout.bachs.io/c/2dlngXokX0jUT9c',
+      '2bottles': 'https://checkout.bachs.io/c/G77gVeZWvJ_8CYI',
+      '3bottles': 'https://checkout.bachs.io/c/yvF54bwI8P0uRns'
+    };
+
+    const prices = {
+      '1bottle': { full: 20000, discount: 17000, label: '1 Bottle Starter' },
+      '2bottles': { full: 34000, discount: 28900, label: '2 Bottles Most Popular' },
+      '3bottles': { full: 40000, discount: 34000, label: '3 Bottles Eradication Bundle' }
+    };
+
+    let orderData = {
+      name: '',
+      phone: '',
+      plan: '2bottles',
+      amount: 34000
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const status = urlParams.get('status') || '';
+      const name = urlParams.get('name') || '';
+      const phone = urlParams.get('phone') || '';
+      const plan = urlParams.get('plan') || '2bottles';
+
+      orderData.name = name;
+      orderData.phone = phone;
+      orderData.plan = plan;
+
+      const pInfo = prices[plan] || prices['2bottles'];
+      orderData.amount = pInfo.full;
+
+      if (name) document.getElementById('summary-name').textContent = name;
+      if (phone) document.getElementById('summary-phone').textContent = phone;
+      document.getElementById('summary-package').textContent = pInfo.label;
+      document.getElementById('summary-total').textContent = '₦' + pInfo.full.toLocaleString();
+
+      // Update WhatsApp Confirmation link
+      const waBtn = document.getElementById('btn-wa-confirm');
+      const waMsg = `Hello Customer Care, I just placed an order for Vantacin+:%0A- Name: ${encodeURIComponent(name || 'Customer')}%0A- Phone: ${encodeURIComponent(phone || '')}%0A- Package: ${encodeURIComponent(pInfo.label)} (₦${pInfo.full.toLocaleString()})%0APlease confirm my dispatch.`;
+      waBtn.href = `https://wa.me/2348129354135?text=${waMsg}`;
+
+      // Check if user came back from successful online payment
+      if (status === 'success' || urlParams.get('paid') === 'true') {
+        document.getElementById('ty-icon').textContent = '🎉';
+        document.getElementById('ty-heading').textContent = 'Order & Payment Confirmed!';
+        document.getElementById('ty-subheading').innerHTML = 'Thank you! Your payment has been received and verified via Bachs. <strong>Priority VIP Dispatch Activated!</strong>';
+        document.getElementById('summary-payment').innerHTML = '<span style="color: #059669;">PAID ONLINE VIA BACHS (15% Discount Applied) ✓</span>';
+        document.getElementById('summary-total').textContent = '₦' + pInfo.discount.toLocaleString();
+        document.getElementById('ty-steps-box').innerHTML = `
+          <h4 style="font-size: 1.05rem; font-weight: 800; color: #065f46; margin-bottom: 10px;">
+            🚀 Priority Shipping Upgrade Confirmed!
+          </h4>
+          <p style="margin: 0; color: #047857; line-height: 1.6;">
+            Your package has been placed in our <strong>Priority Express Dispatch queue</strong>. You will receive an SMS and WhatsApp tracking update within 2 hours.
+          </p>
+        `;
+        return; // Don't pop up discount modal
+      }
+
+      // Pre-select plan in discount modal
+      const modalSelect = document.getElementById('modal-plan-select');
+      if (modalSelect && prices[plan]) {
+        modalSelect.value = plan;
+      }
+      updateModalDiscountPrice();
+
+      // Trigger Discount Modal after 1.5 seconds
+      setTimeout(() => {
+        const modal = document.getElementById('online-discount-modal');
+        if (modal) modal.classList.add('active');
+      }, 1500);
+    });
+
+    function updateModalDiscountPrice() {
+      const select = document.getElementById('modal-plan-select');
+      const priceDisplay = document.getElementById('modal-discount-price');
+      const val = select.value;
+      const info = prices[val] || prices['2bottles'];
+      priceDisplay.textContent = '₦' + info.discount.toLocaleString();
+    }
+
+    function closeDiscountModal() {
+      const modal = document.getElementById('online-discount-modal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    // Initiate Bachs online payment
+    async function initiateBachsOnlinePayment() {
+      const select = document.getElementById('modal-plan-select');
+      const selectedPlan = select.value;
+      const info = prices[selectedPlan] || prices['2bottles'];
+      
+      const loader = document.getElementById('modal-loader');
+      const btn = document.getElementById('btn-pay-bachs');
+      loader.style.display = 'block';
+      btn.style.display = 'none';
+
+      try {
+        // Attempt dynamic session creation via backend API
+        const response = await fetch('/api/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            plan: selectedPlan,
+            name: orderData.name || 'Valued Customer',
+            email: `${(orderData.name || 'customer').toLowerCase().replace(/[^a-z0-9]/g, '')}@vantacin.com`,
+            phone: orderData.phone || '',
+            successUrl: window.location.origin + '/thank-you.html?status=success&paid=true&name=' + encodeURIComponent(orderData.name) + '&phone=' + encodeURIComponent(orderData.phone) + '&plan=' + selectedPlan,
+            cancelUrl: window.location.origin + '/thank-you.html?status=cancelled&name=' + encodeURIComponent(orderData.name) + '&phone=' + encodeURIComponent(orderData.phone) + '&plan=' + selectedPlan
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.checkoutUrl) {
+            window.location.href = data.checkoutUrl;
+            return;
+          }
+        }
+        throw new Error('Fallback to direct live Bachs checkout URL');
+      } catch (err) {
+        console.log('Redirecting to direct Bachs checkout link:', err);
+        // Fallback to official direct live Bachs checkout URL
+        const directUrl = bachsLinks[selectedPlan] || bachsLinks['2bottles'];
+        window.location.href = directUrl;
+      }
+    }
+  </script>
+</body>
+</html>
