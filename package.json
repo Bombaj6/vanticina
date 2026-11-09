@@ -1,0 +1,12 @@
+{
+  "name": "vanticina",
+  "version": "1.0.0",
+  "description": "VANTACIN+ Herbal Solution Landing Page with Bachs Payment Integration",
+  "scripts": {
+    "build": "mkdir -p dist && cp index.html thank-you.html style.css app.js bachs_checkout_links.json dist/ && cp -r assets dist/assets",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=vanticina --branch=main"
+  },
+  "devDependencies": {
+    "wrangler": "^4.158.0"
+  }
+}
