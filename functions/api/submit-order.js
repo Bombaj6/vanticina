@@ -78,13 +78,15 @@ export async function onRequestPost(context) {
       paymentMethod: 'Cash on Delivery (COD)'
     };
 
-    // 2. Forward to Google Sheets Webhook if configured
-    const googleSheetWebhook = (context.env && context.env.GOOGLE_SHEET_WEBHOOK_URL) || null;
+    // 2. Forward to Google Sheets Webhook + Instant Email
+    const googleSheetWebhook = (context.env && context.env.GOOGLE_SHEET_WEBHOOK_URL) || 
+      'https://script.google.com/macros/s/AKfycbzb_gLfzZnoYDOmIkpKk9ltcSWI_PEuoHZMJBvmGp8ydduueFn_QHKzrLJVKHieBnAikA/exec';
+
     if (googleSheetWebhook) {
       try {
         fetch(googleSheetWebhook, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(webhookPayload)
         }).catch(err => console.error('Google Sheet webhook error:', err));
       } catch (sheetErr) {
