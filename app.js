@@ -45,7 +45,7 @@ function updateRadioCardSelection(packageKey) {
 }
 
 // 3. Direct Order Form Submission Handler
-function handleDirectOrderSubmit(e) {
+async function handleDirectOrderSubmit(e) {
   e.preventDefault();
   
   const submitBtn = document.getElementById('btn-submit-order');
@@ -72,6 +72,41 @@ function handleDirectOrderSubmit(e) {
 
   const amount = amounts[plan] || 34000;
 
+  const orderPayload = {
+    name: name,
+    phone: phone,
+    alt_phone: altPhone,
+    address: address,
+    city: city,
+    state: state,
+    plan: plan,
+    amount: amount
+  };
+
+  let orderRef = '';
+
+  // Submit to backend API (/api/submit-order) with fallback timeout
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+
+    const response = await fetch('/api/submit-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderPayload),
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (response.ok) {
+      const result = await response.json();
+      if (result.orderRef) orderRef = result.orderRef;
+    }
+  } catch (err) {
+    console.warn('Order background sync logged or timed out:', err);
+  }
+
   // Build thank-you URL query params
   const query = new URLSearchParams({
     name: name,
@@ -83,6 +118,10 @@ function handleDirectOrderSubmit(e) {
     plan: plan,
     amount: amount
   });
+
+  if (orderRef) {
+    query.set('ref', orderRef);
+  }
 
   // Redirect to the Thank You Page
   window.location.href = `thank-you.html?${query.toString()}`;

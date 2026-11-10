@@ -275,9 +275,10 @@
       document.getElementById('summary-package').textContent = pInfo.label;
       document.getElementById('summary-total').textContent = '₦' + pInfo.full.toLocaleString();
 
+      const ref = urlParams.get('ref') || '';
       // Update WhatsApp Confirmation link
       const waBtn = document.getElementById('btn-wa-confirm');
-      const waMsg = `Hello Customer Care, I just placed an order for Vantacin+:%0A- Name: ${encodeURIComponent(name || 'Customer')}%0A- Phone: ${encodeURIComponent(phone || '')}%0A- Package: ${encodeURIComponent(pInfo.label)} (₦${pInfo.full.toLocaleString()})%0APlease confirm my dispatch.`;
+      const waMsg = `Hello Customer Care, I just placed an order for Vantacin+:${ref ? '%0A- Order ID: ' + ref : ''}%0A- Name: ${encodeURIComponent(name || 'Customer')}%0A- Phone: ${encodeURIComponent(phone || '')}%0A- Package: ${encodeURIComponent(pInfo.label)} (₦${pInfo.full.toLocaleString()})%0APlease confirm my dispatch.`;
       waBtn.href = `https://wa.me/2348129354135?text=${waMsg}`;
 
       // Check if user came back from successful online payment
