@@ -6,6 +6,24 @@
   <title>Order Confirmed — VANTACIN+ Herbal Solution</title>
   <meta name="description" content="Thank you for ordering VANTACIN+ Herbal Capsules. Your delivery order has been received.">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1784059602814962');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1784059602814962&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <style>
     .ty-container {
       max-width: 680px;
@@ -259,26 +277,64 @@
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const status = urlParams.get('status') || '';
-      const name = urlParams.get('name') || '';
-      const phone = urlParams.get('phone') || '';
-      const plan = urlParams.get('plan') || '2bottles';
+      const pkgParam = urlParams.get('pkg') || urlParams.get('plan') || '2';
+      const orderId = urlParams.get('order') || urlParams.get('ref') || '';
 
-      orderData.name = name;
-      orderData.phone = phone;
-      orderData.plan = plan;
+      // Determine price by package: 1 bottle = 20000, 2 bottles = 34000, 3 bottles = 40000
+      let purchasePrice = null;
+      let planKey = '2bottles';
 
-      const pInfo = prices[plan] || prices['2bottles'];
+      if (pkgParam === '1' || pkgParam === '1bottle') {
+        purchasePrice = 20000;
+        planKey = '1bottle';
+      } else if (pkgParam === '2' || pkgParam === '2bottles') {
+        purchasePrice = 34000;
+        planKey = '2bottles';
+      } else if (pkgParam === '3' || pkgParam === '3bottles') {
+        purchasePrice = 40000;
+        planKey = '3bottles';
+      }
+
+      // Meta Pixel: Fire Purchase event exactly once per order
+      // Only fire it when a valid pkg and order ID are present, and store order ID in sessionStorage
+      if (orderId && purchasePrice !== null && typeof fbq === 'function') {
+        const trackedOrders = JSON.parse(sessionStorage.getItem('fb_purchase_orders') || '[]');
+        if (!trackedOrders.includes(orderId)) {
+          fbq('track', 'Purchase', { value: purchasePrice, currency: 'NGN' }, { eventID: orderId });
+          trackedOrders.push(orderId);
+          sessionStorage.setItem('fb_purchase_orders', JSON.stringify(trackedOrders));
+        }
+      }
+
+      // Read customer details from sessionStorage to keep personal details completely out of the URL
+      let customerName = 'Valued Customer';
+      let customerPhone = '';
+      try {
+        const storedOrder = JSON.parse(sessionStorage.getItem('vantacin_last_order') || '{}');
+        if (storedOrder.name) customerName = storedOrder.name;
+        if (storedOrder.phone) customerPhone = storedOrder.phone;
+      } catch (e) {}
+
+      // Fallback to URL query params if previously set
+      if (urlParams.get('name')) customerName = urlParams.get('name');
+      if (urlParams.get('phone')) customerPhone = urlParams.get('phone');
+
+      orderData.name = customerName;
+      orderData.phone = customerPhone;
+      orderData.plan = planKey;
+      orderData.orderId = orderId;
+
+      const pInfo = prices[planKey] || prices['2bottles'];
       orderData.amount = pInfo.full;
 
-      if (name) document.getElementById('summary-name').textContent = name;
-      if (phone) document.getElementById('summary-phone').textContent = phone;
+      document.getElementById('summary-name').textContent = customerName;
+      document.getElementById('summary-phone').textContent = customerPhone || 'On File (Dispatched via SMS)';
       document.getElementById('summary-package').textContent = pInfo.label;
       document.getElementById('summary-total').textContent = '₦' + pInfo.full.toLocaleString();
 
-      const ref = urlParams.get('ref') || '';
       // Update WhatsApp Confirmation link
       const waBtn = document.getElementById('btn-wa-confirm');
-      const waMsg = `Hello Customer Care, I just placed an order for Vantacin+:${ref ? '%0A- Order ID: ' + ref : ''}%0A- Name: ${encodeURIComponent(name || 'Customer')}%0A- Phone: ${encodeURIComponent(phone || '')}%0A- Package: ${encodeURIComponent(pInfo.label)} (₦${pInfo.full.toLocaleString()})%0APlease confirm my dispatch.`;
+      const waMsg = `Hello Customer Care, I just placed an order for Vantacin+:${orderId ? '%0A- Order ID: ' + orderId : ''}%0A- Name: ${encodeURIComponent(customerName)}%0A- Phone: ${encodeURIComponent(customerPhone)}%0A- Package: ${encodeURIComponent(pInfo.label)} (₦${pInfo.full.toLocaleString()})%0APlease confirm my dispatch.`;
       waBtn.href = `https://wa.me/2348129354135?text=${waMsg}`;
 
       // Check if user came back from successful online payment
@@ -301,8 +357,8 @@
 
       // Pre-select plan in discount modal
       const modalSelect = document.getElementById('modal-plan-select');
-      if (modalSelect && prices[plan]) {
-        modalSelect.value = plan;
+      if (modalSelect && prices[planKey]) {
+        modalSelect.value = planKey;
       }
       updateModalDiscountPrice();
 
@@ -331,6 +387,7 @@
       const select = document.getElementById('modal-plan-select');
       const selectedPlan = select.value;
       const info = prices[selectedPlan] || prices['2bottles'];
+      const pkgCode = selectedPlan === '1bottle' ? '1' : selectedPlan === '3bottles' ? '3' : '2';
       
       const loader = document.getElementById('modal-loader');
       const btn = document.getElementById('btn-pay-bachs');
@@ -347,8 +404,8 @@
             name: orderData.name || 'Valued Customer',
             email: `${(orderData.name || 'customer').toLowerCase().replace(/[^a-z0-9]/g, '')}@vantacin.com`,
             phone: orderData.phone || '',
-            successUrl: window.location.origin + '/thank-you.html?status=success&paid=true&name=' + encodeURIComponent(orderData.name) + '&phone=' + encodeURIComponent(orderData.phone) + '&plan=' + selectedPlan,
-            cancelUrl: window.location.origin + '/thank-you.html?status=cancelled&name=' + encodeURIComponent(orderData.name) + '&phone=' + encodeURIComponent(orderData.phone) + '&plan=' + selectedPlan
+            successUrl: window.location.origin + '/thank-you?status=success&paid=true&pkg=' + pkgCode + '&order=' + encodeURIComponent(orderData.orderId || ''),
+            cancelUrl: window.location.origin + '/thank-you?status=cancelled&pkg=' + pkgCode + '&order=' + encodeURIComponent(orderData.orderId || '')
           })
         });
 

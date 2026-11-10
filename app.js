@@ -107,24 +107,31 @@ async function handleDirectOrderSubmit(e) {
     console.warn('Order background sync logged or timed out:', err);
   }
 
-  // Build thank-you URL query params
-  const query = new URLSearchParams({
-    name: name,
-    phone: phone,
-    alt_phone: altPhone,
-    address: address,
-    city: city,
-    state: state,
-    plan: plan,
-    amount: amount
-  });
+  // Determine package number (1, 2, or 3)
+  const pkgMap = { '1bottle': '1', '2bottles': '2', '3bottles': '3' };
+  const pkg = pkgMap[plan] || '2';
+  const uniqueOrder = orderRef || ('VAN-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(100 + Math.random() * 900));
 
-  if (orderRef) {
-    query.set('ref', orderRef);
+  // Store order details in sessionStorage so /thank-you can display details without putting PII in the URL
+  try {
+    sessionStorage.setItem('vantacin_last_order', JSON.stringify({
+      name: name,
+      phone: phone,
+      alt_phone: altPhone,
+      address: address,
+      city: city,
+      state: state,
+      pkg: pkg,
+      order: uniqueOrder,
+      plan: plan,
+      amount: amount
+    }));
+  } catch (err) {
+    console.warn('sessionStorage save error:', err);
   }
 
-  // Redirect to the Thank You Page
-  window.location.href = `thank-you.html?${query.toString()}`;
+  // Redirect to /thank-you with only pkg and order (NO personal or health information in URL)
+  window.location.href = `thank-you?pkg=${encodeURIComponent(pkg)}&order=${encodeURIComponent(uniqueOrder)}`;
 }
 
 // 4. Testimonial Lightbox
@@ -163,6 +170,33 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
+// 6. Meta Pixel Tracking Logic
+function setupMetaPixelTracking() {
+  // Fire ViewContent on landing page load (without any sensitive or health parameters)
+  if (typeof fbq === 'function') {
+    fbq('track', 'ViewContent');
+  }
+
+  // Fire InitiateCheckout once when the visitor first starts filling in the order form (first focus on any form field)
+  // Not on the "order now" buttons that only scroll to the form
+  let initiateCheckoutFired = false;
+  const orderForm = document.getElementById('direct-order-form');
+  if (orderForm) {
+    const formFields = orderForm.querySelectorAll('input, select, textarea');
+    formFields.forEach((field) => {
+      field.addEventListener('focus', () => {
+        if (!initiateCheckoutFired) {
+          initiateCheckoutFired = true;
+          if (typeof fbq === 'function') {
+            fbq('track', 'InitiateCheckout');
+          }
+        }
+      });
+    });
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   startCountdown();
+  setupMetaPixelTracking();
 });
